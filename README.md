@@ -1,3 +1,3 @@
 # RhinoChain
 
-learning to write my own blockchain for shits and giggles in python
+Experimenting with writing my own blockchain in python
