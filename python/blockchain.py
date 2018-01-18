@@ -34,9 +34,10 @@ class Blockchain():
 	def __init__(self):
 		self.chain = []
 		self.current_transactions = []
-		self.accounts = {}
+		self.accounts = {'0x': 100}
 		# we must create a genesis block
 		self.new_block(previous_hash=1, proof=100)
+
 
 	def __apply_balances(self):
 		for tx in self.current_transactions:
@@ -49,10 +50,18 @@ class Blockchain():
 			except KeyError as e:
 				print('invalid address used')
 
+	def get_account_addresses(self):
+		return self.accounts.keys()
+
 	def init_account(self, name):
 		account_hash = "Rhc" + hashlib.sha256(name.encode()).hexdigest()
 		assert account_hash not in self.accounts.keys()
-		self.accounts[account_hash] = 1
+		self.accounts[account_hash] = 0
+		self.current_transactions.append({
+			'sender': '0x',
+			'recipient': account_hash,
+			'amount': 1
+		})
 
 	def new_block(self, proof, previous_hash=None):
 		# creates a new block
